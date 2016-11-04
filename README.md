@@ -10,10 +10,13 @@ This will install and configure a development environment for working on project
 4. Run `vagrant up` and `vagrant ssh`
 5. Inside the VM, run `cd /projects` and start working
 
-### How it's work ###
-The goal of this project is to provide a complete development environment as quick as possible, without directly installing and configuring packages and softwares on your PC or MAC.
+## Primary goals ##
+1. Help developpers be "up and running" in less than 15 minutes.
+2. Keep the host machine as clean as possible by installing all required components inside a VM.  
+3. Provide a development environment as close as possible to the production environment.
 
-This will prevents any collision between what is installed on your computer and the requirements components for working on projects with us.  
+### How it's work ###
+VirtualBox is a virtualization software developed by Oracle.  It creates virtual machines (guests) that can be installed and on host computer.  Vagrant gives the tools to provision (install softwares and packages), configure and interact with virtual machines.
 
 Any project drop inside the **projects** folder will be available inside the VM at **/projects/project_name**.  So you can use your favorite text editor on your host
 
