@@ -1,6 +1,6 @@
-# Unidea Development environment #
+# Unidea's Development Environment #
 
-This will install and configure a development environment for working on projects related to Ruby or Node, with the following : rbenv, nvm, ImageMagick, MySQL, PostgresSQL and Redis.
+This will install and configure a development environment for working on projects related to Ruby or Node, with the following : **rbenv, nvm, ImageMagick, MySQL, PostgresSQL and Redis**.
 
 ### Installation ###
 
@@ -10,19 +10,33 @@ This will install and configure a development environment for working on project
 4. Run `vagrant up` and `vagrant ssh`
 5. Inside the VM, run `cd /projects` and start working
 
-### Requirements ###
+### How it's work ###
+The goal of this project is to provide a complete development environment as quick as possible, without directly installing and configuring packages and softwares on your PC or MAC.
+
+This will prevents any collision between what is installed on your computer and the requirements components for working on projects with us.  
+
+Any project drop inside the **projects** folder will be available inside the VM at **/projects/project_name**.  So you can use your favorite text editor on your host
+
+#### GUI tools and port fowarding ####
+To connect to databases from your host, you can use your favorite GUI Tools.  Some ports are already fowarded, for your convenience.  **This could create conflicts with your current environment** if some ports are already in use by other services.
+
+#### Working with rails ####
+You can specify your required ruby version in a `.ruby-version` file, at the root of your project.
+
+#### Working with rails ####
+You can specify your required node version in a `.nvmrc` file, at the root of your project.
+
+## Requirements ##
 
 On Mac, you need `git` to checkout this repository.  Git support comes with Xcode Command Line Tools.
 You can check if the full Xcode package is already installed by typing : `xcode-select -p`.
 You can install it by typing `xcode-select --install`.
 
+If you want to keep your PC or Mac host clean, you can download this project instead.  
+
 ## Dependencies inside the VM (Ubuntu) ##
+We are still working on identifiying only the packages that are requiered to install.
 
-##### Node Version Manager (nvm) #####
-build-essential libssl-dev
-
-##### rbenv #####
-build-essential libssl-dev
-
-##### nokogiri #####
-build-essential patch ruby-dev zlib1g-dev liblzma-dev
+- **Node Version Manager (nvm)** : build-essential, libssl-dev
+- **rbenv** : build-essential libssl-dev
+- **nokogiri** : build-essential, patch, ruby-dev, zlib1g-dev, liblzma-dev
