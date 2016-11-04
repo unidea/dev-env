@@ -23,11 +23,15 @@ Any project drop inside the **projects** folder will be available inside the VM 
 #### GUI tools and port fowarding ####
 To connect to databases from your host, you can use your favorite GUI Tools.  Some ports are already fowarded, for your convenience.  **This could create conflicts with your current environment** if some ports are already in use by other services.
 
-#### Working with rails ####
-You can specify your required ruby version in a `.ruby-version` file, at the root of your project.
+#### Working with Ruby or Rails ####
+You can specify your required ruby version in a `.ruby-version` file, at the root of your project.  After, run `. ./vm-install.sh` to install project requirements.
 
-#### Working with rails ####
-You can specify your required node version in a `.nvmrc` file, at the root of your project.
+A template folder exist in the projects directory.  
+
+#### Working with Node.js ####
+You can specify your required node version in a `.nvmrc` file, at the root of your project.  After, run `. ./vm-install.sh` to install project requirements.
+
+A template folder exist in the projects directory.
 
 ## Requirements ##
 
