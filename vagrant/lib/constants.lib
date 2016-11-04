@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Makes debconf use a frontend that expects no interactive input at all.
+export DEBIAN_FRONTEND=noninteractive
+
+VERBOSE_INSTALL=0

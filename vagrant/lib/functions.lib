@@ -1,0 +1,71 @@
+#!/bin/bash
+
+source /tmp/constants.lib
+
+# Function to run command
+function run_command
+{
+  if [ $VERBOSE_INSTALL ] ; then
+    eval $1 > /dev/null
+  else
+    eval $1
+  fi
+}
+
+# Function to log string
+function log_str
+{
+  if [ $VERBOSE_INSTALL ]; then
+    echo "." ; echo $1 ; echo "."
+  else
+    echo $1
+  fi
+}
+
+# Function to log header.  Each var represent a new line
+function log_header
+{
+  echo "."
+  for var in "$@" ; do echo "$var" ; done
+  echo "----------------------------------------------------------------------"
+  echo "."
+}
+
+# Function to log the current user
+function log_whoami
+{
+  log_header "Finding who is installing."
+  whoami
+}
+
+# Function to update packages
+function apt_update
+{
+  log_header "Updating available packages."
+  run_command "apt-get -y update"
+}
+
+# Function to update packages, as a sudoer
+function sudo_apt_update
+{
+  sudo apt_update $1
+}
+
+# Function to install packages
+function apt_install
+{
+  log_str "Installing $1"
+  run_command "apt-get -y install $1"
+}
+
+# Function to install packages, as a sudoer
+function sudo_apt_install
+{
+  sudo apt_install $1
+}
+
+function apt_clean
+{
+  log_header "Cleaning apt-get"
+  run_command "apt-get -y clean"
+}

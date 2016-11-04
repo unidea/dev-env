@@ -1,0 +1,94 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ubuntu/trusty64"
+
+  # Configures the virtual machine to use 2GB of RAM
+  config.vm.provider :virtualbox do |vb|
+    vb.name = "Unidea Vagrant"
+    vb.linked_clone = true
+    vb.memory = 2048
+    vb.cpus = 2
+    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+  end
+
+  # Ports mapping
+  config.vm.network "forwarded_port", guest: 3000, host: 3000 #rails
+  config.vm.network "forwarded_port", guest: 3306, host: 3306 #mysql
+  config.vm.network "forwarded_port", guest: 5432, host: 5432 #postgress
+  config.vm.network "forwarded_port", guest: 6379, host: 6379 #redis
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP. Required for NFS to work.
+  config.vm.network :private_network, ip: '192.168.50.50'
+
+  # Use NFS for shared folders for better performance
+  config.vm.synced_folder "../projects", "/projects" #, nfs: true
+
+  # config.vm.synced_folder "./", "/var/www", create: true, group: "www-data", owner: "www-data"
+
+  # Makes helper functions available inside the VW
+  config.vm.provision "constants", type: :file, source: "lib/constants.lib", destination: "/tmp/constants.lib"
+  config.vm.provision "functions", type: :file, source: "lib/functions.lib", destination: "/tmp/functions.lib"
+
+  config.vm.provision "server", type: :shell, privileged: true do |s|
+    s.path = "provisions/server.sh"
+    s.args = [""]
+  end
+
+  config.vm.provision "postgres", type: :shell, privileged: true do |s|
+    s.path = "provisions/postgres.sh"
+    s.args = [""]
+  end
+
+  config.vm.provision "mysql", type: :shell, privileged: true do |s|
+    s.path = "provisions/mysql.sh"
+    s.args = [""]
+  end
+
+  config.vm.provision "redis", type: :shell, privileged: true do |s|
+    s.path = "provisions/redis.sh"
+    s.args = [""]
+  end
+
+  config.vm.provision "nvm", type: :shell, privileged: false do |s|
+    s.path = "provisions/nvm.sh"
+    s.args = [""]
+  end
+
+  config.vm.provision "node", type: :shell, privileged: false do |s|
+    s.path = "provisions/node.sh"
+    s.args = [""]
+  end
+
+  config.vm.provision "rbenv", type: :shell, privileged: false do |s|
+    s.path = "provisions/rbenv.sh"
+    s.args = [""]
+  end
+
+  config.vm.provision "ruby", type: :shell, privileged: false do |s|
+    s.path = "provisions/ruby.sh"
+    s.args = [""]
+  end
+
+  # ATTENTION: Projects provisions will only work if the VM is up.
+  #
+  # config.vm.provision "unidea", type: :shell, privileged: false do |s|
+  #   s.path = "../vagrant_projects/unidea.2016.ca/vagrant-provision.sh"
+  #   s.args = [""]
+  # end
+
+  # Cleaning script to free space
+  config.vm.provision "clean", type: :shell, privileged: true do |s|
+    s.path = "provisions/clean.sh"
+    s.args = [""]
+  end
+
+  # Generating ssh-key
+  config.vm.provision "id_rsa", type: :shell, privileged: false do |s|
+    s.path = "provisions/id_rsa.sh"
+    s.args = [""]
+  end
+end
